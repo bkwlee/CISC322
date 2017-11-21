@@ -41,7 +41,7 @@ public class MainPanel extends JPanel {
     public MainPanel() {
 	super();
 	mainArea = new JTextArea(20,80);
-	mainArea.setBackground(Color.GRAY);
+	mainArea.setBackground(Color.CYAN);
 	JScrollPane sc = new JScrollPane(mainArea);
         // Add a border to the panel so we can see its boundaries
         sc.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
