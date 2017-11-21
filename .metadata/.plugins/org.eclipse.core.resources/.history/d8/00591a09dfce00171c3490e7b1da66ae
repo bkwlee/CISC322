@@ -111,7 +111,6 @@ public class TextType implements DocumentType {
     */
 
     private static String[][] actionPairs = {
-    		//HERE------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!
 	{ "Edit/Copy", DefaultEditorKit.copyAction} ,
 	{ "Edit/Cut", DefaultEditorKit.cutAction},
 	// { "", DefaultEditorKit.cutAction}, // test error check
@@ -159,7 +158,6 @@ public class TextType implements DocumentType {
 	if (menu==null) {
 	    menu = new MenuDescriptor();
 	    try {
-	    	//HERE------------------------------------------------------------------------------!!!!!
 		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
 		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
 		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
@@ -189,6 +187,6 @@ public class TextType implements DocumentType {
     /**
      * The expected extensions for files the application can edit.
      */
-    private static String[] extensions = { "txt", "html" }; ///HERE!!!------------------------------------!!!!
+    private static String[] extensions = { "txt", "html" };
 
 } // end class TextType
