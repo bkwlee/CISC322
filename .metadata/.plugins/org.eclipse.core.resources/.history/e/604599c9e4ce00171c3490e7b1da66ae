@@ -1,6 +1,5 @@
 // $Id: TextEditor.java,v 1.2 2012/12/14 20:23:49 dalamb Exp dalamb $
 import javax.swing.JPanel;
-import javax.swing.plaf.metal.MetalPopupMenuSeparatorUI;
 import javax.swing.JMenuBar;
 // Import only those classes from edfmwk that are essential, for documentation purposes
 import ca.queensu.cs.dal.edfmwk.Application;
@@ -27,7 +26,6 @@ import ca.queensu.cs.dal.flex.i18n.Localizer;
 
 public class TextEditor extends Application {
     private MenuDescriptor menu;
-    private MenuDescriptor menu2;
     /* package */ MainPanel mainPanel;
     private static String title = "Simple PDF Editor";
     private static String copyright = "2017 David Alex Lamb & CISC 322 Group 5, Benjamin Lee, Rafael Rodriguez, Clark Hodgins";
@@ -45,7 +43,6 @@ public class TextEditor extends Application {
     public MenuDescriptor getMainMenu() {
 	if (menu==null) {
 	    menu = new MenuDescriptor(Menus.getStandardMenu());
-	    menu2 = new MenuDescriptor();
 	    //System.err.println("Got standard menu.");
 	    try {
 		//menu.addElement(new MenuElement("Edit")); // position empty menu
@@ -66,29 +63,29 @@ public class TextEditor extends Application {
      * Constructs and initializes the editor.
      */
     public TextEditor() {
-		super(title);
-		mainPanel = new MainPanel();
-		DocumentType fac = new TextType();
-		DocumentManager manager = getDocumentManager();
-		//System.err.println("Got to return from getDocumentManager");
-		if (manager!=null) {
-		    manager.addExtension(fac);
-		}
-		// Localizers.Menu.getLocalizer().addBaseName(packageName+".Text");
-		// Localizers.Message.getLocalizer().addBaseName(packageName+".Text");
-		addLocalizerBaseName(packageName+".Text");
-		//System.err.println("About to get main menu");
-		MenuDescriptor mainMenu = getMainMenu();
-		//System.err.println("Returned from get main menu");
-		MenuElement newAction = mainMenu.getElement("New");
-		if (newAction!=null)
-		    newAction.setAction(new NewAction(fac));
-		register = new Register(packageName, title, copyright, version);
-		Register.setPrimaryRegister(register);
-		//System.err.println("About set up main menu");
-		setup(mainPanel, mainMenu);
-		finishSetup();
-		//System.err.println("Got to end of Text Editor constructor");
+	super(title);
+	mainPanel = new MainPanel();
+	DocumentType fac = new TextType();
+	DocumentManager manager = getDocumentManager();
+	//System.err.println("Got to return from getDocumentManager");
+	if (manager!=null) {
+	    manager.addExtension(fac);
+	}
+	// Localizers.Menu.getLocalizer().addBaseName(packageName+".Text");
+	// Localizers.Message.getLocalizer().addBaseName(packageName+".Text");
+	addLocalizerBaseName(packageName+".Text");
+	//System.err.println("About to get main menu");
+	MenuDescriptor mainMenu = getMainMenu();
+	//System.err.println("Returned from get main menu");
+	MenuElement newAction = mainMenu.getElement("New");
+	if (newAction!=null)
+	    newAction.setAction(new NewAction(fac));
+	register = new Register(packageName, title, copyright, version);
+	Register.setPrimaryRegister(register);
+	//System.err.println("About set up main menu");
+	setup(mainPanel, mainMenu);
+	finishSetup();
+	//System.err.println("Got to end of Text Editor constructor");
     } // end constructor TextEditor
     
     
@@ -97,7 +94,7 @@ public class TextEditor extends Application {
      * waits for user interface events.
      */
     public static void main(String args[]) {
-    	new TextEditor();
+	new TextEditor();
     } // end main
 
     /**
@@ -105,7 +102,7 @@ public class TextEditor extends Application {
      *   global information.
      */
     public static TextEditor getApplication() {
-    	return (TextEditor) Application.getApplication();
+	return (TextEditor) Application.getApplication();
     }
 
 } // end class TextEditor
