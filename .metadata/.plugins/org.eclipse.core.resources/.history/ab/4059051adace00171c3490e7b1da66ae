@@ -1,0 +1,21 @@
+import java.io.*;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
+public class Main {
+
+	public static void main(String[] args) throws IOException{
+		
+		//Creating PDF document object
+		File file = new File("Project.pdf");
+		PDFDocument doc = PDFDocument.load(file);
+		
+		PDFTextStripper pdfStripper = new PDFTextStripper();
+		
+		String text = pdfStripper.getText(doc);
+		System.out.println(text);
+		
+		doc.close();
+
+	}
+
+}
