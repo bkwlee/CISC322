@@ -10,10 +10,12 @@ import java.util.Iterator;
 import java.awt.*;
 import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
 
-public class Split extends TextAction{
+public class Split extends TextAction {
+	
 	public Split() {
 		super("Split");
 	}
+	
 	public void changeText(TextContents con, int start, int end){
 		
 		try {
@@ -25,10 +27,16 @@ public class Split extends TextAction{
 			
 			Iterator<PDDocument> iter = Pages.listIterator();
 			
+			// Save each file to the same directory, with incrementing file names
+			FileDialog dialog = new FileDialog((Frame)null, "Select File to Save to");
+			dialog.setMode(FileDialog.SAVE);
+			dialog.setVisible(true);
+			String fileName = dialog.getDirectory() + dialog.getFile();
+			
 			int i = 1;
 		    while(iter.hasNext()) {
-		    	PDDocument pd = iter.next();
-		    	pd.save("MyPdf"+ i++ +".pdf");
+			    	PDDocument pd = iter.next();
+			    	pd.save(fileName + i++ +".pdf");
 		    }
 			
 			con.setDoc(doc);
