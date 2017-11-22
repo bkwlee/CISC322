@@ -17,7 +17,8 @@ import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.data.tree.TreeException;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.flex.log.Log;
-
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
 /**
  * <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)">Factory</a>
  * for representations of text files.
@@ -37,6 +38,7 @@ public class TextType implements DocumentType {
      * @return the new document contents.
      */
     public Document newDocument() {
+//    System.out.println("Here in TextType");
 	return new TextDocument(this);
     }
 
@@ -160,10 +162,13 @@ public class TextType implements DocumentType {
 	    menu = new MenuDescriptor();
 	    try {
 	    	//HERE------------------------------------------------------------------------------!!!!!
-		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
-		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
-		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
-		menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
+//	    System.out.println("Here in TextType MenuDescriptor");
+//		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
+//		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
+//		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
+//		menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
+		menu.addElement(new MenuElement("Edit/Remove", new RemovePages()));
+		menu.addElement(new MenuElement("Edit/Merge", new Merge()));
 	    } catch (Exception e) {
 		Log.internalError("Menu element error "+e.getLocalizedMessage());
 	    }
@@ -189,6 +194,6 @@ public class TextType implements DocumentType {
     /**
      * The expected extensions for files the application can edit.
      */
-    private static String[] extensions = { "txt", "html", "pdf" }; ///HERE!!!------------------------------------!!!!
+    private static String[] extensions = {"pdf" }; ///HERE!!!------------------------------------!!!!
 
 } // end class TextType

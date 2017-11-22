@@ -10,6 +10,8 @@ import ca.queensu.cs.dal.edfmwk.Application;
 import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
 import ca.queensu.cs.dal.edfmwk.win.CommonWindow;
 import ca.queensu.cs.dal.flex.log.Log;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
 /**
  * Parent for {@link javax.swing.Action Actions} for implementing changes to
  * the current text selection. Subclasses need only implement the

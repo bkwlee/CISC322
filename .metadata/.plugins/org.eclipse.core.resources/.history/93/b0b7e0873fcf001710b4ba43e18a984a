@@ -1,0 +1,23 @@
+import java.io.IOException;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
+
+public class RemovePages extends TextAction {
+	public RemovePages() {
+		super("Remove");
+	}
+	public void changeText(TextContents con, int start, int end){
+		try {
+		int pages = end - start;
+		PDDocument document = con.getDoc();
+		//iterate through list of pages to remove, do one at a time
+		document.removePage(pages % 3);
+		con.setDoc(document);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+}

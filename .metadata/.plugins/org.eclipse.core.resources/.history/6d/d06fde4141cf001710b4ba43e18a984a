@@ -1,0 +1,41 @@
+import java.io.File;
+import java.io.IOException;
+import javax.swing.*;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.*;
+import org.apache.pdfbox.pdmodel.*;
+
+import java.awt.event.*;
+import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
+
+public class Merge extends TextAction {
+	public Merge() {
+		super("Merge");
+	}
+	public void textAction(TextContents con, int start, int end){
+		
+		//Instantiating PDFMergerUtility class
+		PDFMergerUtility PDFmerger = new PDFMergerUtility();
+		PDDocument doc1 = con.getDoc();
+		
+		
+		FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+	    dialog.setMode(FileDialog.LOAD);
+	    dialog.setVisible(true);
+	    String file = dialog.getFile();
+	    
+	    
+		 //adding the source files
+		  
+		 PDFmerger.addSource(file1);;
+		 PDFmerger.addSource(doc2);
+		
+		 //Merging the two documents
+		 PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+		
+		 System.out.println("Documents merged");
+		 //Closing the documents
+		 doc1.close();
+		 doc2.close();
+	}
+}

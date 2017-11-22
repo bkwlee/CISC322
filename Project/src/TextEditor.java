@@ -17,6 +17,8 @@ import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.edfmwk.Menus;
 import ca.queensu.cs.dal.flex.Register;
 import ca.queensu.cs.dal.flex.i18n.Localizer;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
 
 /**
  * A simple text editor using the document framework.

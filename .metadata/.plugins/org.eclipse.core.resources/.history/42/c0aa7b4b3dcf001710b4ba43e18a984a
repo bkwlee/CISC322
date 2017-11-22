@@ -1,0 +1,19 @@
+import java.io.IOException;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
+
+public class RemovePages extends DefaultAction {
+	public RemovePages() {
+		super("Merge");
+	}
+	public PDDocument RP(TextContents con, int[] pages) throws IOException{
+		PDDocument document = con.getDoc();
+		//iterate through list of pages to remove, do one at a time
+		for(int i=0;i<pages.length; i++) {
+			document.removePage(pages[i]);
+		}
+		return document;
+	}
+	
+}

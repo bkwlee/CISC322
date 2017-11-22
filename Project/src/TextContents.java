@@ -5,7 +5,13 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.StringSequence;
 import ca.queensu.cs.dal.edfmwk.doc.StringSequenceInputStream;
 
-/**
+import org.apache.pdfbox.io.IOUtils;
+//importing pdfbox functionality
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
+
+
+/** 
  * Internal representation of a text document.
  *<p>
  * Copyright 2010-2011 David Alex Lamb.
@@ -17,6 +23,7 @@ public class TextContents
 {
     private int bufferSize;
     private char[] buffer;
+    private PDDocument doc;
 
     /**
      * Constructs an empty text file contents.
@@ -33,22 +40,79 @@ public class TextContents
      * @throws IOException if any I/O errors occur, in which case it will have
      * closed the stream.
      */
+    
+    
+    ////////////////////////////
+    public PDDocument getDoc() {
+    	return(doc);
+    }
+    public void setDoc(PDDocument newDoc) throws IOException{
+    	doc = newDoc;
+    	int pgs = doc.getNumberOfPages();
+    	try {
+		PDFTextStripper pdfStripper = new PDFTextStripper();
+		String text = "";
+		
+		for(int i=1;i<=pgs;i++) {
+			pdfStripper.setStartPage(i);
+			pdfStripper.setEndPage(i);
+			text += pdfStripper.getText(doc);
+			
+			text += "\n\n\n";
+		}
+		
+		insertString(0, text, null);
+    	}
+    	catch(Exception e) {
+    		throw new IOException(e.getLocalizedMessage());
+    	}
+    }
+    ////////////////////////////
+    
+    
+    
     public void open(InputStream in)
 	throws IOException
     {
-	//System.err.println("Open...");	
+	//System.err.println("Open...");
 	Reader rdr = new InputStreamReader(in);
+	
+	//Reads inputStream into PDDocument Load function
+//	System.out.println("Here in TextContents");
+	byte[] inputBytes = IOUtils.toByteArray(in);
+	doc = PDDocument.load(new ByteArrayInputStream(inputBytes));
+	//System.out.println("InputStreamReader" + in.toString());
 	try {
-	    int pos = 0;
-	    int len;
-	    while ((len = rdr.read(buffer)) > 0 ) {
-		String chunk = new String(buffer,0,len);
-		//System.err.println("Insert '"+chunk+"' len "+len+" at "+pos);
-		insertString(pos,chunk,null);
-		pos += chunk.length();
-	    }
+//	    int pos = 0;
+//	    int len;
+//	    while ((len = rdr.read(buffer)) > 0 ) {
+//			String chunk = new String(buffer,0,len);
+//			//System.err.println("Insert '"+chunk+"' len "+len+" at "+pos);
+//			insertString(pos,chunk,null);
+//			pos += chunk.length();
+//	    }
+//		
+		int pgs = doc.getNumberOfPages();
+		PDFTextStripper pdfStripper = new PDFTextStripper();
+		String text = "";
+		
+		for(int i=1;i<=pgs;i++) {
+			pdfStripper.setStartPage(i);
+			pdfStripper.setEndPage(i);
+			text += pdfStripper.getText(doc);
+			
+			text += "\n\n\n";
+		}
+		text += "End of Document";
+		
+		insertString(0, text, null);
+		//System.out.println(text);
+		
+		//doc.close();
+		
 	} catch (Exception e) {
 	    rdr.close();
+	    doc.close();
 	    //		throw new IOException(e);
 	    throw new IOException(e.getLocalizedMessage());
 	}
@@ -90,7 +154,8 @@ public class TextContents
      */
     public void save(OutputStream out) throws IOException {
 	try {
-	    write(new PrintWriter(out));
+//	    write(new PrintWriter(out));
+		doc.save(out);
 	} catch (Exception e) {
 	    out.close();
 	    //	    throw new IOException(e);

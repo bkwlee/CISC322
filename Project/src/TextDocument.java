@@ -10,6 +10,8 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentEvent;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentListener;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.text.*;
 
 /**
  * Implementation of a text document, which is (indirectly) defined in
@@ -25,7 +27,7 @@ public class TextDocument
     private static int numRows = 20;
     private static int numColumns = 80;
     private TextContents contents;
-
+    private PDDocument doc;
     /**
      * Constructs a document representation.
      * @param type The type of the document.
@@ -35,10 +37,15 @@ public class TextDocument
 	contents = new TextContents();
 	contents.addDocumentListener(this);
 	JTextArea jta = new JTextArea(numRows, numColumns);
+	jta.setEditable(false);
 	jta.setDocument(contents);
 	window = new JScrollPane(jta);
+//	System.out.println("Here in TextDocument");
+	
+//	System.out.println(doc.getNumberOfPages());
+	
     } // end TextDocument
-
+    
     // Text document change listeners: all invoke the framework's own document
     // change listeners.
 
