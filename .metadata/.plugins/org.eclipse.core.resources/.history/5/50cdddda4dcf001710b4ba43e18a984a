@@ -169,8 +169,6 @@ public class TextType implements DocumentType {
 //		menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
 		menu.addElement(new MenuElement("Edit/Remove", new RemovePages()));
 		menu.addElement(new MenuElement("Edit/Merge", new Merge()));
-		menu.addElement(new MenuElement("Edit/Split", new Split()));
-		menu.addElement(new MenuElement("Edit/Encrypt", new EncryptPDF()));
 	    } catch (Exception e) {
 		Log.internalError("Menu element error "+e.getLocalizedMessage());
 	    }
